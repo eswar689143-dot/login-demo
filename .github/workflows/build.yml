@@ -75,8 +75,11 @@ jobs:
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/login-demo_backend:latest
             
             echo "Restarting app with zero downtime..."
-            cd $(dirname ${{ secrets.DOCKER_COMPOSE_PATH }})
+
+            cd "${{ secrets.DOCKER_COMPOSE_PATH }}"
+            docker-compose pull
             docker-compose down
-            docker-compose up -d
+            docker-compose up -d --remove-orphans
+
             
             echo "Deployment complete!"
