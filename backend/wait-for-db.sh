@@ -2,11 +2,11 @@
 
 set -e
 
-echo "Waiting for MySQL to be ready..."
+echo "Waiting for MySQL at db:3306..."
 
-until nc -z db 3306; do
+while ! nc -z db 3306; do
   sleep 2
 done
 
-echo "MySQL is UP - starting backend"
+echo "MySQL is available — starting backend..."
 exec "$@"
